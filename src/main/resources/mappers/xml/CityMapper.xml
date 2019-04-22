@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jeson.Weather.dao.CityMapper">
+  <resultMap id="BaseResultMap" type="cn.jeson.Weather.model.City">
+    
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    id, pid, city_code, city_name
+  </sql>
+  
+  
+  <select id="findCity" parameterType="cn.jeson.Weather.model.City" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List">
+  	</include>
+  	from js_city
+  	<where>
+  		<if test="cityName!=null and cityName!=''">
+  			and city_name like '%${cityName}%'
+  		</if>
+  	</where>
+  </select>
+  
+  <insert id="insert" parameterType="cn.jeson.Weather.model.City">
+    insert into js_city (id, pid, city_code, 
+      city_name)
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{cityCode,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR})
+  </insert>
+ 
+  <insert id="insertSelective" parameterType="cn.jeson.Weather.model.City">
+    insert into js_city
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

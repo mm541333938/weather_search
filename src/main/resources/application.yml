@@ -1,8 +1,14 @@
-spring: 
- datasource: 
-  driver-class-name: com.mysql.jdbc.Driver
-  url: jdbc:mysql://127.0.0.1:3306/myweb
-  username: root
-  password: root
-#mybatis: 
-# mapper-locations: classpath://mappers/*.xml
+server:
+    port: 18080
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/weatherdb
+        username: root
+        password: 123456
+        
+mybatis:
+    mapper-locations: classpath:mappers/xml/*.xml
+
+
